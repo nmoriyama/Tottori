@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="library.mapper.BookMapper">
+	<resultMap id="BookResult" type="library.dto.BookDto">
+        <result column="book_id" property="bookId" />
+        <result column="book_kanaByte" property="bookKanaByte" />
+        <result column="book_name" property="bookName" />
+        <result column="author_kanaByte" property="authorKanaByte" />
+        <result column="author_name" property="authorName" />
+        <result column="rental_time" property="rentalTime" />
+        <result column="shelf_id" property="shelfId" />
+        <result column="document_id" property="documentId" />
+        <result column="library_id" property="libraryId" />
+    </resultMap>
+	<insert id="insert">
+		INSERT INTO book (book_kanaByte, book_name, author_kanaByte, author_name, publisher
+		 , isbn, shelf_id, document_id, library_id, status_id) 
+		 VALUES (#{bookKanaByte}, #{bookName}, #{authorKanaByte}, #{authorName}
+		 , #{publisher}, #{isbn}, #{shelfId}, #{documentId}, #{libraryId}, '1') ;
+	</insert>
+	<insert id="rental">
+		INSERT INTO book (rental_id, user_id, book_id, library_id, rental_time) 
+		 VALUES (#{rentalId}, #{userId}, #{bookId}, #{libraryId}, #{rentalTime}) ;
+	</insert>
+</mapper>
