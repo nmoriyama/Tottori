@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <html>
 <head>
@@ -16,7 +17,13 @@
         住所：鳥取県鳥取市<input name = "address"/><br>
         電話番号：<input name = "phoneNumber"/><br>
         メールアドレス：<input name = "mail"/><br>
-        受取図書館(セレクトボックスに)：<input name = "libraryId"/><br>
+        受取図書館：
+        <select name = "libraryId">
+			<c:forEach items = "${ Library }" var = "library">
+				<option value = "${ library.libraryId }" >
+				<c:out value = "${ library.libraryName }" /></option>
+		</c:forEach>
+		</select>
         <input type="submit" value = "登録">
     </form:form>
 </body>

@@ -28,6 +28,7 @@ public class UserService {
     }
     
     public UserDto search(UserDto dto) {
+
     	UserDto user = userMapper.search(dto);
     	return user;
     }

@@ -5,7 +5,7 @@ import java.util.Date;
 public class RentalDto {
 	private int rentalId;
 	private int userId;
-	private int bookId;
+	private int isbn;
 	private int libraryId;
 	private Date rentalTime;
 	public int getRentalId() {
@@ -20,11 +20,11 @@ public class RentalDto {
 	public void setUserId(int userId) {
 		this.userId = userId;
 	}
-	public int getBookId() {
-		return bookId;
+	public int getIsbn() {
+		return isbn;
 	}
-	public void setBookId(int bookId) {
-		this.bookId = bookId;
+	public void setIsbn(int isbn) {
+		this.isbn = isbn;
 	}
 	public int getLibraryId() {
 		return libraryId;

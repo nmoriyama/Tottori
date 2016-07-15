@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import library.dto.BookDto;
+import library.dto.LibraryDto;
 import library.dto.RentalDto;
 import library.form.BookForm;
 import library.form.RentalForm;
@@ -27,6 +28,8 @@ public class BookController {
     public String bookInsert(Model model) {
         BookForm form = new BookForm();
         model.addAttribute("bookForm", form);
+        List<LibraryDto> library = bookService.library();
+        model.addAttribute("Library", library);
         //model.addAttribute("message", "");
         return "bookRegister";
     }
@@ -45,7 +48,10 @@ public class BookController {
     @RequestMapping(value = "/lendBook", method = RequestMethod.GET)
     public String lendBook(Model model) {
     	RentalForm form = new RentalForm();
+        
+        List<LibraryDto> library = bookService.library();
         model.addAttribute("rentalForm", form);
+        model.addAttribute("Library", library);
         //model.addAttribute("message", "");
         return "lendBook";
     }
@@ -57,25 +63,26 @@ public class BookController {
     	List<String> messages = bookService.rental(dto);
     	model.addAttribute("bookForm", form);
         //model.addAttribute("message", "");
-        return "lendBook";
+        return "redirect:/lendBook";
     }
     
     //返却
     @RequestMapping(value = "/returnBook", method = RequestMethod.GET)
     public String returnBook(Model model) {
     	RentalForm form = new RentalForm();//rentalテーブル以外
+        List<LibraryDto> library = bookService.library();
+        model.addAttribute("Library", library);
         model.addAttribute("rentalForm", form);
         //model.addAttribute("message", "");
-        return "lendBook";
+        return "returnBook";
     }
     
     @RequestMapping(value = "/returnBook", method = RequestMethod.POST)
     public String returnBook(@ModelAttribute RentalForm form, Model model) {
     	RentalDto dto = new RentalDto();
     	BeanUtils.copyProperties(form, dto);
-    	List<String> messages = bookService.rental(dto);
-    	model.addAttribute("bookForm", form);
+    	List<String> messages = bookService.returnBook(dto);
         //model.addAttribute("message", "");
-        return "lendBook";
+        return "redirect:/returnBook";
     }
 }

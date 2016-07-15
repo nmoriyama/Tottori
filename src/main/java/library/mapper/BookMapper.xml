@@ -13,14 +13,25 @@
         <result column="document_id" property="documentId" />
         <result column="library_id" property="libraryId" />
     </resultMap>
+    <resultMap id="LibraryResult" type="library.dto.LibraryDto">
+        <result column="library_id" property="libraryId" />
+        <result column="library_name" property="libraryName" />
+    </resultMap>
 	<insert id="insert">
 		INSERT INTO book (book_kanaByte, book_name, author_kanaByte, author_name, publisher
 		 , isbn, shelf_id, document_id, library_id, status_id) 
 		 VALUES (#{bookKanaByte}, #{bookName}, #{authorKanaByte}, #{authorName}
 		 , #{publisher}, #{isbn}, #{shelfId}, #{documentId}, #{libraryId}, '1') ;
 	</insert>
+
+	<select id="library" resultMap="LibraryResult">
+		SELECT * FROM library ; 
+	</select>
 	<insert id="rental">
-		INSERT INTO book (rental_id, user_id, book_id, library_id, rental_time) 
-		 VALUES (#{rentalId}, #{userId}, #{bookId}, #{libraryId}, #{rentalTime}) ;
+		INSERT INTO rental (user_id, isbn, library_id, rental_time)
+		 VALUES (#{userId}, #{isbn}, #{libraryId}, #{rentalTime}) ;
 	</insert>
+	<delete id="returnBook">
+		DELETE FROM rental WHERE isbn = #{isbn} AND library_id = #{libraryId};
+	</delete>
 </mapper>

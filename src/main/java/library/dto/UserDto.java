@@ -10,6 +10,8 @@ public class UserDto {
 	private String phoneNumber;
 	private int libraryId;
 	private Date insertTime;
+	private Date updateTime;
+	
 	public int getUserId() {
 		return userId;
 	}
@@ -58,6 +60,5 @@ public class UserDto {
 	public void setUpdateTime(Date updateTime) {
 		this.updateTime = updateTime;
 	}
-	private Date updateTime;
 }
 

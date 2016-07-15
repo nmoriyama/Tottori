@@ -4,15 +4,15 @@
 <mapper namespace="library.mapper.UserMapper">
 	<resultMap id="UserResult" type="library.dto.UserDto">
         <result column="user_id" property="userId" />
-        <result column="user_id" property="userName" />
-        <result column="phone_number" property="phoneNumber" />
+        <result column="user_name" property="userName" />
         <result column="library_id" property="libraryId" />
         <result column="insert_time" property="insertTime" />
         <result column="update_time" property="updateTime" />
     </resultMap>
+    
 	<insert id="insert">
-		INSERT INTO user (user_id, user_name, adress, mail, phoneNumber, library_id, insert_time, update_time) 
-		 VALUES (#{userId}, #{userName}, #{adress}, #{mail}, #{phoneNumber}, #{libraryId}, #{insertTime}, #{updateTime}) ;
+		INSERT INTO user (user_id, user_name, address, mail, phoneNumber, library_id, insert_time, update_time) 
+		 VALUES (#{userId}, #{userName}, #{address}, #{mail}, #{phoneNumber}, #{libraryId}, #{insertTime}, #{updateTime}) ;
 	</insert>
 	
 	<select id="search" resultMap="UserResult">
@@ -20,8 +20,12 @@
 	</select>
 	
 	<update id="update">
-		UPDATE user SET user_id = #{userId}, user_name = #{userName}, adress = #{adress}, mail = #{mail},
+		UPDATE user SET user_id = #{userId}, user_name = #{userName}, address = #{adress}, mail = #{mail},
 		 phoneNumber = #{phoneNumber}, library_id #{libraryId}, insert_time = #{insertTime}, update_time = #{updateTime} 
 		 WHERE user_id = #{userId}
 	</update>
+	
+
+	
+	
 </mapper>
