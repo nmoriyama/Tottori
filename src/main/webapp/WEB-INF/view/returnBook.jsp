@@ -22,5 +22,6 @@
 		</select>
         <input type="submit" value = "貸出"/>
     </form:form>
+	<a href = "home">戻る</a>
 </body>
 </html>

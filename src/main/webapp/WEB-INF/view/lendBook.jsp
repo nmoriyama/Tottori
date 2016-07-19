@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>図書登録</title>
+<title>貸出</title>
 </head>
 <body>
     <h1>${message}</h1>
@@ -20,7 +20,18 @@
 				<c:out value = "${ library.libraryName }" /></option>
 			</c:forEach>
 		</select>
+		<br>
+		ユーザーID：<input name = "userId"/><br>
+        ISBN：<input name = "isbn"/><br>
+        図書館番号：
+        <select name = "libraryId">
+			<c:forEach items = "${ Library }" var = "library">
+				<option value = "${ library.libraryId }" >
+				<c:out value = "${ library.libraryName }" /></option>
+			</c:forEach>
+		</select>
         <input type="submit" value = "貸出"/>
     </form:form>
+     <a href = "home">戻る</a>
 </body>
 </html>

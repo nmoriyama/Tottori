@@ -9,7 +9,10 @@
         <result column="insert_time" property="insertTime" />
         <result column="update_time" property="updateTime" />
     </resultMap>
-    
+    <resultMap id="BlackListResult" type="library.dto.BlackListDto">
+        <result column="user_name" property="userName" />
+        <result column="book_name" property="bookName" />
+    </resultMap>
 	<insert id="insert">
 		INSERT INTO user (user_id, user_name, address, mail, phoneNumber, library_id, insert_time, update_time) 
 		 VALUES (#{userId}, #{userName}, #{address}, #{mail}, #{phoneNumber}, #{libraryId}, #{insertTime}, #{updateTime}) ;
@@ -20,12 +23,14 @@
 	</select>
 	
 	<update id="update">
-		UPDATE user SET user_id = #{userId}, user_name = #{userName}, address = #{adress}, mail = #{mail},
+		UPDATE user SET user_id = #{userId}, user_name = #{userName}, address = #{address}, mail = #{mail},
 		 phoneNumber = #{phoneNumber}, library_id #{libraryId}, insert_time = #{insertTime}, update_time = #{updateTime} 
 		 WHERE user_id = #{userId}
 	</update>
 	
-
+	<select id="blackList" resultMap="BlackListResult">
+		SELECT user_name, book_name, mail, phoneNumber FROM blackList ;
+	</select>
 	
 	
 </mapper>

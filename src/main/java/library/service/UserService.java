@@ -7,6 +7,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import library.dto.BlackListDto;
 import library.dto.UserDto;
 import library.mapper.UserMapper;
 
@@ -16,14 +17,18 @@ public class UserService {
     private UserMapper userMapper;
 
     public List<String> insert(UserDto dto) {
-    	//List<String> messages = check(dto, "check");
     	List<String> messages = new ArrayList<String>();
-    	//if (messages.size() == 0) {
     	Date date = new Date();
     	dto.setInsertTime(date);
     	dto.setUpdateTime(date);
     	userMapper.insert(dto);
-    	//}
+   
+        return messages;
+    }
+    
+    public List<String> userCheck(UserDto dto) {
+    	List<String> messages = new ArrayList<String>();
+    	//if () 
         return messages;
     }
     
@@ -35,5 +40,10 @@ public class UserService {
     
     public void update(UserDto dto) {
         userMapper.update(dto);
+    }
+    
+    public List<BlackListDto> blackList() {
+    	List<BlackListDto> blackList = userMapper.blackList();
+    	return blackList;
     }
 }

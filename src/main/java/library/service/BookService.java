@@ -16,8 +16,13 @@ import library.mapper.BookMapper;
 public class BookService {
     @Autowired
     private BookMapper bookMapper;
+    
 	public List<String> insert(BookDto dto) {
 		List<String> messages = new ArrayList<String>();
+		
+		dto.setAuthorKanaByte(dto.getAuthorKana());
+		dto.setBookKanaByte(dto.getBookKana().substring(0,1));
+		dto.setAuthorKanaByte(dto.getAuthorKana().substring(0,1));
         bookMapper.insert(dto);
         return messages;
     }

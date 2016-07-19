@@ -2,20 +2,48 @@ package library.form;
 
 import java.util.Date;
 
+import javax.validation.constraints.Max;
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.NotEmpty;
+
 public class BookForm {
 	private int bookId;
+	@NotEmpty(message = "書名のふりがなを入力してください")
+	private String bookKana;
 	private String bookKanaByte;
+	@NotEmpty(message = "書名を入力してください")
+	@Max(value=100, message = "書名が100文字を超えています")
 	private String bookName;
+	@NotEmpty(message = "著者名のふりがなを入力してください")
+	@Max(value=255, message = "著者名が255文字を超えています")
+	private String authorKana;
 	private String authorKanaByte;
+	@NotEmpty(message = "著者名を入力してください")
 	private String authorName;
+	@NotEmpty(message = "出版社名を入力してください")
 	private String publisher;
 	private Date rentalTime;
+	@NotNull(message = "ISBNを入力してください")
 	private int isbn;
+	@NotNull(message = "棚番号を入力してください")
 	private int shelfId;
 	private int documentId;
 	private int libraryId;
 	private int status;
 	
+	public String getBookKana() {
+		return bookKana;
+	}
+	public void setBookKana(String bookKana) {
+		this.bookKana = bookKana;
+	}
+	public String getAuthorKana() {
+		return authorKana;
+	}
+	public void setAuthorKana(String authorKana) {
+		this.authorKana = authorKana;
+	}
 	public int getBookId() {
 		return bookId;
 	}

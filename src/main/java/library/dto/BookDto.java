@@ -6,11 +6,13 @@ import java.util.Date;
 
 public class BookDto {
 	private int bookId;
+	private String bookKana;
 	private String bookKanaByte;
-
 	private String bookName;
+	private String authorKana;
+
 	private String authorKanaByte;
-		private String authorName;
+	private String authorName;
 
 	private String publisher;
 	private Date rentalTime;
@@ -22,6 +24,18 @@ public class BookDto {
 	private int libraryId;
 	private int status;
 	
+	public String getBookKana() {
+		return bookKana;
+	}
+	public void setBookKana(String bookKana) {
+		this.bookKana = bookKana;
+	}
+	public String getAuthorKana() {
+		return authorKana;
+	}
+	public void setAuthorKana(String authorKana) {
+		this.authorKana = authorKana;
+	}
 	public int getBookId() {
 		return bookId;
 	}
