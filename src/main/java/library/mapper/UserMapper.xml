@@ -32,5 +32,15 @@
 		SELECT user_name, book_name, mail, phoneNumber FROM blackList ;
 	</select>
 	
+	<select id="userIdCheck" resultMap="UserResult">
+		SELECT * FROM user WHERE user_id = #{userId} ;
+	</select>
 	
+	<select id="mailCheck" resultMap="UserResult">
+		SELECT * FROM user WHERE mail = #{mail} ;
+	</select>
+	
+	<select id="phoneNumberCheck" resultMap="UserResult">
+		SELECT * FROM user WHERE phoneNumber = #{phoneNumber} ;
+	</select>
 </mapper>

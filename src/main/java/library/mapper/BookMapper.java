@@ -11,4 +11,5 @@ public interface BookMapper {
 	void rental(RentalDto dto);
 	List<LibraryDto> library();
 	void returnBook(RentalDto dto);
+	List<BookDto> bookCheck(BookDto dto);
 }

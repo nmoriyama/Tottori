@@ -43,18 +43,25 @@ public class BookController {
     
     @RequestMapping(value = "/bookRegister", method = RequestMethod.POST)
     public String bookInsert(@Valid @ModelAttribute BookForm form, BindingResult result, Model model) {
+        List<LibraryDto> library = bookService.library();
+        BookForm bookForm = new BookForm();
+        model.addAttribute("Library", library);
+        model.addAttribute("bookForm", form);
     	if (result.hasErrors()) {
-            List<LibraryDto> library = bookService.library();
-            model.addAttribute("bookForm", form);
-            model.addAttribute("Library", library);
+    		
             return "bookRegister";
     	} else {
     		BookDto dto = new BookDto();
     		BeanUtils.copyProperties(form, dto);
-    		List<String> messages = bookService.insert(dto);
-    		model.addAttribute("bookForm", form);
+    		List<String> messages = bookService.bookCheck(dto);
+    		if (messages.size() == 0) {
+    			bookService.insert(dto);
+    			model.addAttribute("bookForm", bookForm);
+    		}
+    		
+    		
     		model.addAttribute("messages", messages);
-    		return "redirect:/bookRegister";
+    		return "bookRegister";
     	}
     }
     

@@ -34,4 +34,7 @@
 	<delete id="returnBook">
 		DELETE FROM rental WHERE isbn = #{isbn} AND library_id = #{libraryId};
 	</delete>
+	<select id="bookCheck" resultMap="BookResult">
+		SELECT * FROM book WHERE isbn = #{isbn} AND library_id = #{libraryId}; 
+	</select>
 </mapper>

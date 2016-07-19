@@ -10,7 +10,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
@@ -22,7 +21,7 @@ import library.service.BookService;
 import library.service.UserService;
 
 @Controller
-@SessionAttributes("UpdateUser")
+@SessionAttributes("updateUser")
 public class UserController {
 
     @Autowired
@@ -50,16 +49,23 @@ public class UserController {
     
     @RequestMapping(value = "/userRegister", method = RequestMethod.POST)
     public String userInsert(@Valid @ModelAttribute UserForm form, BindingResult result, Model model) {
+		List<LibraryDto> library = bookService.library();
+		model.addAttribute("Library", library);
     	if (result.hasErrors()) {
-    		List<LibraryDto> library = bookService.library();
-    		model.addAttribute("Library", library);
-    		model.addAttribute("userForm", form);
+    		form.getUserId();
+
+    		model.addAttribute("insertUser", form);
     		 return "userRegister";
     	} else {
 	    	UserDto dto = new UserDto();
+	    	UserForm userForm = new UserForm();
 	    	BeanUtils.copyProperties(form, dto);
-	    	List<String> messages = userService.insert(dto);
-	    	model.addAttribute("userForm", form);
+	    	List<String> messages = userService.userCheck(dto);
+	    	//重複チェック
+	    	if (messages.size() == 0) {
+	    		userService.insert(dto);
+	    	}
+	    	model.addAttribute("userForm", userForm);
 	        model.addAttribute("messages", messages);
 	    	return "userRegister";
     	}
@@ -73,16 +79,18 @@ public class UserController {
         return "userSearch";
     }
     
-    
-    @RequestMapping(value = "/userSearch/{id}", method = RequestMethod.GET)
-    public String userSearch(@PathVariable("id") int id, Model model) {
+    @RequestMapping(value = "/userUpdate", method = RequestMethod.GET)
+    public String userSearch(@ModelAttribute UserForm form, Model model) {
     	UserDto dto = new UserDto();
-    	dto.setUserId(id);
-    	//BeanUtils.copyProperties(form, dto);
-    	UserDto UpdateUser = userService.search(dto);
-    	model.addAttribute("UpdateUser", UpdateUser);
-    	UserForm form = new UserForm();
-        model.addAttribute("userForm", form);
+    	UserForm userForm = new UserForm();
+    	BeanUtils.copyProperties(form, dto);
+    	UserDto updateUser = userService.search(dto);
+    	model.addAttribute("userForm", userForm);
+    	if(updateUser == null) {
+    		return "redirect:/userSearch";
+    	}
+    	model.addAttribute("updateUser", updateUser);
+        
         List<LibraryDto> library = bookService.library();
         model.addAttribute("Library", library);
         return "userUpdate";
@@ -104,14 +112,19 @@ public class UserController {
     	if (result.hasErrors()) {
             List<LibraryDto> library = bookService.library();
             model.addAttribute("Library", library);
-            model.addAttribute("UpdateUser", form);
+            model.addAttribute("updateUser", form);
             return "userUpdate";
     	} else {
     		UserDto dto = new UserDto();
     		BeanUtils.copyProperties(form, dto);
-    		userService.update(dto);
-    		//model.addAttribute("message", "ユーザー更新");
-    		return "home";
+	    	List<String> messages = userService.userCheck(dto);
+	    	//重複チェック
+	    	if (messages.size() != 0) {
+	    		userService.update(dto);
+	    	}
+    		
+    		model.addAttribute("message", messages);
+    		return "manageHome";
     	}
     }
 }

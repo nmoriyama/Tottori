@@ -9,20 +9,22 @@
 <title>ユーザー登録</title>
 </head>
 <body>
-    <h1>${message}</h1>
+	<c:forEach items = "${ messages }" var = "message">
+		<li><c:out value = "${ message }" /><br>
+	</c:forEach>
     <form:form modelAttribute="userForm">
     <div><form:errors path="*"  /></div>
-        ログインID：<input name = "userId"/><br>
-        名前：<input name = "userName"/><br>
-        住所：鳥取県鳥取市<input name = "address"/><br>
-        電話番号：<input name = "phoneNumber"/><br>
-        メールアドレス：<input name = "mail"/><br>
+        ログインID：<input name = "userId" type="text" value = "${ insertUser.userId }"/><br>
+        名前：<input name = "userName" value = "${ insertUser.userName }"/><br>
+        住所：<input name = "address" value = "${ insertUser.address }"/><br>
+        電話番号：<input name = "phoneNumber" type="tel" value = "${ insertUser.phoneNumber }"/><br>
+        メールアドレス：<input name = "mail" type="email" value = "${ insertUser.mail }"/><br>
         受取図書館：
         <select name = "libraryId">
 			<c:forEach items = "${ Library }" var = "library">
-				<option value = "${ library.libraryId }" >
+				<option value = "${ library.libraryId }" <c:if test = "${ insertUser.libraryId == library.libraryId }">selected</c:if> >
 				<c:out value = "${ library.libraryName }" /></option>
-		</c:forEach>
+			</c:forEach>
 		</select>
         <input type="submit" value = "登録">
     </form:form>

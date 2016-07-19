@@ -11,21 +11,20 @@
 <body>
     <h1>${message}</h1>
     <form:form modelAttribute="userForm">
-        ログインID：<input name = "userId" value = "${ UpdateUser.userId }"/><br>
-        名前：<input name = "userName" value = "${ UpdateUser.userName }"/><br>
-        住所：<input name = "address" value = "${ UpdateUser.address }"/><br>
-        電話番号：<input name = "phoneNumber" value = "${ UpdateUser.phoneNumber }"/><br>
-        メールアドレス：<input name = "mail" value = "${ UpdateUser.mail }"/><br>
+        ログインID：<input name = "userId" value = "${ updateUser.userId }"/><br>
+        名前：<input name = "userName" value = "${ updateUser.userName }"/><br>
+        住所：<input name = "address" value = "${ updateUser.address }"/><br>
+        電話番号：<input name = "phoneNumber" type="tel" value = "${ updateUser.phoneNumber }"/><br>
+        メールアドレス：<input name = "mail" type="email" value = "${ updateUser.mail }"/><br>
         受取図書館：
         <select name = "libraryId">
 			<c:forEach items = "${ Library }" var = "library">
-				<option value = "${ library.libraryId }" <c:if test = "${ UpdateUser.libraryId == library.libraryId }">selected</c:if>>
+				<option value = "${ library.libraryId }" <c:if test = "${ updateUser.libraryId == library.libraryId }">selected</c:if>>
 				<c:out value = "${ library.libraryName }" /></option>
-		</c:forEach>
-		</select>
-        <br>
+			</c:forEach>
+		</select><br>
         <input type="submit" value = "登録">
     </form:form>
-	<a href = "home">戻る</a>
+	<a href = "manageHome">戻る</a>
 </body>
 </html>

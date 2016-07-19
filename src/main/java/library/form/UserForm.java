@@ -4,29 +4,24 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotEmpty;
-import org.hibernate.validator.constraints.Range;
 
 public class UserForm {
-	@NotNull(message = "ログインIDを入力してください")
-	@Range(min=4, max=8, message = "4～8桁で入力してください")
-
-	private int userId;
-	@NotEmpty(message = "名前を入力してください")
+	//@Range(min=4, max=8, message = "ログインIDは4～8桁で入力してください")
+	private String userId;
+	@NotEmpty(message = "名前は4～8桁で入力してください")
 	private String userName;
 	@NotEmpty(message = "住所を入力してください")
 	private String address;
 	@NotEmpty(message = "メールを入力してください")
 	private String mail;
-	@NotEmpty(message = "電話番号を入力してください")
-	
 	@Min(value = 11, message = "電話番号は{value}桁の値で設定してください")
 	private String phoneNumber;
 	@NotNull
 	private int libraryId;
-	public int getUserId() {
+	public String getUserId() {
 		return userId;
 	}
-	public void setUserId(int userId) {
+	public void setUserId(String userId) {
 		this.userId = userId;
 	}
 	public String getUserName() {

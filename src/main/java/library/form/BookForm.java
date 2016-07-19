@@ -2,7 +2,6 @@ package library.form;
 
 import java.util.Date;
 
-import javax.validation.constraints.Max;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotEmpty;
@@ -12,14 +11,12 @@ public class BookForm {
 	@NotEmpty(message = "書名のふりがなを入力してください")
 	private String bookKana;
 	private String bookKanaByte;
-	@NotEmpty(message = "書名を入力してください")
-	@Max(value=100, message = "書名が100文字を超えています")
+	//@Min(value=100, message = "書名が100文字を超えています")
 	private String bookName;
-	@NotEmpty(message = "著者名のふりがなを入力してください")
-	@Max(value=255, message = "著者名が255文字を超えています")
+	
 	private String authorKana;
 	private String authorKanaByte;
-	@NotEmpty(message = "著者名を入力してください")
+	//@Max(value=255, message = "著者名が255文字を超えています")
 	private String authorName;
 	@NotEmpty(message = "出版社名を入力してください")
 	private String publisher;

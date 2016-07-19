@@ -10,4 +10,7 @@ public interface UserMapper {
 	UserDto search(UserDto dto);
 	void update(UserDto dto);
 	List<BlackListDto> blackList();
+	List<UserDto> userIdCheck(UserDto dto);
+	List<UserDto> mailCheck(UserDto dto);
+	List<UserDto> phoneNumberCheck(UserDto dto);
 }
