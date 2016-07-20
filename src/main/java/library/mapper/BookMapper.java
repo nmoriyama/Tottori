@@ -14,4 +14,5 @@ public interface BookMapper {
 	void returnBook(RentalDto dto);
 	List<BookDto> bookCheck(BookDto dto);
 	List<MypageRentalDto> rentalConfirm(RentalDto dto);
+	List<BookDto> delinquentBook(RentalDto dto);
 }

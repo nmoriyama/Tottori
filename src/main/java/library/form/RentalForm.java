@@ -4,7 +4,7 @@ import java.util.Date;
 
 public class RentalForm {
 	private int rentalId;
-	private int userId;
+	private String userId;
 	private int isbn;
 	private int libraryId;
 	private Date rentalTime;
@@ -14,10 +14,10 @@ public class RentalForm {
 	public void setRentalId(int rentalId) {
 		this.rentalId = rentalId;
 	}
-	public int getUserId() {
+	public String getUserId() {
 		return userId;
 	}
-	public void setUserId(int userId) {
+	public void setUserId(String userId) {
 		this.userId = userId;
 	}
 	public int getIsbn() {

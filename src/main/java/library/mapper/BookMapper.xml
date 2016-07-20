@@ -25,8 +25,8 @@
 	<insert id="insert">
 		INSERT INTO book (book_kanaByte, book_name, author_kanaByte, author_name, publisher
 		 , isbn, shelf_id, document_id, library_id, status_id) 
-		 VALUES (#{bookKanaByte}, #{bookName}, #{authorKanaByte}, #{authorName},
-		 , #{publisher}, #{isbn}, #{shelfId}, #{documentId}, #{libraryId}, '1') ;
+		 VALUES (#{bookKanaByte}, #{bookName}, #{authorKanaByte}, #{authorName}
+		 , #{publisher}, #{isbn}, #{shelfId}, #{documentId}, #{libraryId}, 1) ;
 	</insert>
 	
 	<select id="library" resultMap="LibraryResult">
@@ -45,5 +45,9 @@
 	
 	<select id="rentalConfirm" resultMap="RentalResult">
 		SELECT * FROM mypage_rental WHERE user_id = #{userId};
+	</select>
+	
+	<select id="delinquentBook" resultMap="BookResult">
+		SELECT * FROM mypage_rental WHERE isbn = #{isbn} AND #{rentalTime} >= rental_time; 
 	</select>
 </mapper>

@@ -6,10 +6,12 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>ユーザー登録</title>
+<title>ユーザー更新</title>
 </head>
 <body>
-    <h1>${message}</h1>
+	<c:forEach items = "${ messages }" var = "message">
+		<li><span style="color: #ff0000"><c:out value = "${ message }" /><br></span>
+	</c:forEach>
     <form:form modelAttribute="userForm">
         ログインID：<input name = "userId" value = "${ updateUser.userId }"/><br>
         名前：<input name = "userName" value = "${ updateUser.userName }"/><br>

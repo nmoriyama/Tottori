@@ -9,7 +9,9 @@
 <title>図書登録</title>
 </head>
 <body>
-    <h1>${message}</h1>
+	<c:forEach items = "${ messages }" var = "message">
+		<li><span style="color: #ff0000"><c:out value = "${ message }" /><br></span>
+	</c:forEach>
     <form:form modelAttribute="rentalForm">
 
         ISBN：<input name = "isbn"/><br>

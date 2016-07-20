@@ -1,6 +1,7 @@
 package library.service;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -47,7 +48,8 @@ public class BookService {
 	
 	public List<String> bookCheck(BookDto dto) {
 		List<String> messages = new ArrayList<String>();
-		if (bookMapper.bookCheck(dto) != null) {
+		List<BookDto> bookCheck = bookMapper.bookCheck(dto);
+		if (bookCheck.size() > 0) {
     		messages.add("その図書は既に登録されています");
     	}
         return messages;
@@ -56,5 +58,16 @@ public class BookService {
 	public List<MypageRentalDto> rentalConfirm(RentalDto dto) {
 		List<MypageRentalDto> rentalBook = bookMapper.rentalConfirm(dto);
 		return rentalBook;
+	}
+
+	public List<BookDto> delinquentBook(RentalDto dto) {
+    	Date date = new Date();
+    	Calendar cal = Calendar.getInstance();
+    	cal.setTime(date);
+    	cal.add(Calendar.DATE,14);
+    	Date afterTime = new java.sql.Date(cal.getTimeInMillis());
+    	dto.setRentalTime(afterTime);
+		List<BookDto> delinquentBook = bookMapper.delinquentBook(dto);
+		return delinquentBook;
 	}
 } 

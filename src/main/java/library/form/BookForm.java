@@ -21,7 +21,7 @@ public class BookForm {
 	@NotEmpty(message = "出版社名を入力してください")
 	private String publisher;
 	private Date rentalTime;
-	@NotNull(message = "ISBNを入力してください")
+//	@NotNull(message = "ISBNを入力してください")
 	private int isbn;
 	@NotNull(message = "棚番号を入力してください")
 	private int shelfId;

@@ -35,8 +35,14 @@ public class UserService {
 
     	return user;
     }
-    
+    //ユーザー更新
     public void update(UserDto dto) {
+    	Date date = new Date();
+    	Calendar cal = Calendar.getInstance();
+    	cal.setTime(date);
+    	cal.add(Calendar.YEAR,1);
+    	Date afterTime = new java.sql.Date(cal.getTimeInMillis());
+    	dto.setUpdateTime(afterTime);
         userMapper.update(dto);
     }
     
@@ -63,9 +69,10 @@ public class UserService {
     	return messages;
     }
     
+    //ユーザーが更新しているか
     public boolean updateConfirm(RentalDto dto) {
-    	UserDto user = userMapper.updateConfirm(dto);
-    	if (user == null){
+    	List<UserDto> user = userMapper.updateConfirm(dto);
+    	if (user.size() == 0){
     		return false;
     	}
     	return true;

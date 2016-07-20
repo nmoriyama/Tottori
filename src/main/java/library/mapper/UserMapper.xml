@@ -24,7 +24,7 @@
 	
 	<update id="update">
 		UPDATE user SET user_id = #{userId}, user_name = #{userName}, address = #{address}, mail = #{mail},
-		 phoneNumber = #{phoneNumber}, library_id #{libraryId}, insert_time = #{insertTime}, update_time = #{updateTime} 
+		 phoneNumber = #{phoneNumber}, library_id = #{libraryId}, update_time = #{updateTime} 
 		 WHERE user_id = #{userId}
 	</update>
 	
@@ -45,6 +45,6 @@
 	</select>
 	
 	<select id="updateConfirm" resultMap="UserResult">
-		SELECT * FROM user WHERE user_id = #{userId} AND update_time != DATE(NOW());
+		SELECT * FROM user WHERE user_id = #{userId} AND NOW() >= update_time;
 	</select>
 </mapper>

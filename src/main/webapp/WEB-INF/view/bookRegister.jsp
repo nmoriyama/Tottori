@@ -10,7 +10,7 @@
 </head>
 <body>
     <c:forEach items = "${ messages }" var = "message">
-		<li><c:out value = "${ message }" /><br>
+		<li><span style="color: #ff0000"><c:out value = "${ message }" /><br></span>
 	</c:forEach>
     <form:form modelAttribute="bookForm">
     <div><form:errors path="*"  /></div>
