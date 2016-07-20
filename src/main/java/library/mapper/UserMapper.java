@@ -3,6 +3,7 @@ package library.mapper;
 import java.util.List;
 
 import library.dto.BlackListDto;
+import library.dto.RentalDto;
 import library.dto.UserDto;
 
 public interface UserMapper {
@@ -13,4 +14,5 @@ public interface UserMapper {
 	List<UserDto> userIdCheck(UserDto dto);
 	List<UserDto> mailCheck(UserDto dto);
 	List<UserDto> phoneNumberCheck(UserDto dto);
+	UserDto updateConfirm(RentalDto dto);
 }

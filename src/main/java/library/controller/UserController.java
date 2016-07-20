@@ -31,9 +31,9 @@ public class UserController {
     private BookService bookService;  
     
     //ホーム
-    @RequestMapping(value = "/manageHome", method = RequestMethod.GET)
+    @RequestMapping(value = "/home", method = RequestMethod.GET)
     public String home(Model model) {
-        return "manageHome";
+        return "home";
     }
     
     //ユーザー登録
@@ -124,7 +124,7 @@ public class UserController {
 	    	}
     		
     		model.addAttribute("message", messages);
-    		return "manageHome";
+    		return "home";
     	}
     }
 }

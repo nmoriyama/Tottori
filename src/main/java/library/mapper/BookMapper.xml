@@ -17,13 +17,18 @@
         <result column="library_id" property="libraryId" />
         <result column="library_name" property="libraryName" />
     </resultMap>
+    <resultMap id="RentalResult" type="library.dto.MypageRentalDto">
+		<result column="rental_time" property="rentalTime" />
+		<result column="book_name" property="bookName" />
+		<result column="author_name" property="authorName" />
+    </resultMap>
 	<insert id="insert">
 		INSERT INTO book (book_kanaByte, book_name, author_kanaByte, author_name, publisher
 		 , isbn, shelf_id, document_id, library_id, status_id) 
-		 VALUES (#{bookKanaByte}, #{bookName}, #{authorKanaByte}, #{authorName}
+		 VALUES (#{bookKanaByte}, #{bookName}, #{authorKanaByte}, #{authorName},
 		 , #{publisher}, #{isbn}, #{shelfId}, #{documentId}, #{libraryId}, '1') ;
 	</insert>
-
+	
 	<select id="library" resultMap="LibraryResult">
 		SELECT * FROM library ; 
 	</select>
@@ -36,5 +41,9 @@
 	</delete>
 	<select id="bookCheck" resultMap="BookResult">
 		SELECT * FROM book WHERE isbn = #{isbn} AND library_id = #{libraryId}; 
+	</select>
+	
+	<select id="rentalConfirm" resultMap="RentalResult">
+		SELECT * FROM mypage_rental WHERE user_id = #{userId};
 	</select>
 </mapper>

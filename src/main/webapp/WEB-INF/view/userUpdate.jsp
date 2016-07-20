@@ -25,6 +25,6 @@
 		</select><br>
         <input type="submit" value = "登録">
     </form:form>
-	<a href = "manageHome">戻る</a>
+	<a href = "home">戻る</a>
 </body>
 </html>

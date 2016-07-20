@@ -9,7 +9,9 @@
 <title>図書登録</title>
 </head>
 <body>
-    <h1>${message}</h1>
+    <c:forEach items = "${ messages }" var = "message">
+		<li><c:out value = "${ message }" /><br>
+	</c:forEach>
     <form:form modelAttribute="bookForm">
     <div><form:errors path="*"  /></div>
    		書名(ふりがな)：<input name = "bookKana"/><br>
@@ -28,6 +30,6 @@
 		</select>
         <input type="submit" value = "登録">
     </form:form>
-     <a href = "manageHome">戻る</a>
+     <a href = "home">戻る</a>
 </body>
 </html>

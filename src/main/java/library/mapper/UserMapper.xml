@@ -15,7 +15,7 @@
     </resultMap>
 	<insert id="insert">
 		INSERT INTO user (user_id, user_name, address, mail, phoneNumber, library_id, insert_time, update_time) 
-		 VALUES (#{userId}, #{userName}, #{address}, #{mail}, #{phoneNumber}, #{libraryId}, #{insertTime}, #{updateTime}) ;
+		 VALUES (#{userId}, #{userName}, #{address}, #{mail}, #{phoneNumber}, #{libraryId}, DATE(NOW()), #{updateTime}) ;
 	</insert>
 	
 	<select id="search" resultMap="UserResult">
@@ -42,5 +42,9 @@
 	
 	<select id="phoneNumberCheck" resultMap="UserResult">
 		SELECT * FROM user WHERE phoneNumber = #{phoneNumber} ;
+	</select>
+	
+	<select id="updateConfirm" resultMap="UserResult">
+		SELECT * FROM user WHERE user_id = #{userId} AND update_time != DATE(NOW());
 	</select>
 </mapper>

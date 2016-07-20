@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>ユーザー登録</title>
+<title>ユーザー検索</title>
 </head>
 <body>
     <h1>${message}</h1>
@@ -13,6 +13,6 @@
         ユーザーID：<input name = "userId" value = "${ userForm.userId }"/><br>
         <input type="submit" value = "検索">
     </form:form>
-	<a href = "manageHome">戻る</a>
+	<a href = "home">戻る</a>
 </body>
 </html>

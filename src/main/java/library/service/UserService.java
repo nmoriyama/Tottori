@@ -1,6 +1,7 @@
 package library.service;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -8,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import library.dto.BlackListDto;
+import library.dto.RentalDto;
 import library.dto.UserDto;
 import library.mapper.UserMapper;
 
@@ -18,8 +20,11 @@ public class UserService {
 	//ユーザー登録
     public void insert(UserDto dto) {
     	Date date = new Date();
-    	dto.setInsertTime(date);
-    	dto.setUpdateTime(date);
+    	Calendar cal = Calendar.getInstance();
+    	cal.setTime(date);
+    	cal.add(Calendar.YEAR,1);
+    	Date afterTime = new java.sql.Date(cal.getTimeInMillis());
+    	dto.setUpdateTime(afterTime);
     	userMapper.insert(dto);
     }
     
@@ -43,15 +48,28 @@ public class UserService {
     //重複チェック
     public List<String> userCheck(UserDto dto) {
     	List<String> messages = new ArrayList<String>();
-    	if (userMapper.userIdCheck(dto) != null) {
+    	List<UserDto> userIdCheck = userMapper.userIdCheck(dto);
+    	List<UserDto> mailCheck = userMapper.mailCheck(dto);
+    	List<UserDto> phoneNumberCheck = userMapper.phoneNumberCheck(dto);
+    	if (userIdCheck.size() > 0) {
     		messages.add("そのユーザーIDは既に登録されています");
     	}
-    	if (userMapper.mailCheck(dto) != null) {
+    	if (mailCheck.size() > 0) {
     		messages.add("そのメールアドレスは既に登録されています");
     	}
-    	if (userMapper.phoneNumberCheck(dto) != null) {
+    	if (phoneNumberCheck.size() > 0) {
     		messages.add("その電話番号は既に登録されています");
     	}
     	return messages;
     }
+    
+    public boolean updateConfirm(RentalDto dto) {
+    	UserDto user = userMapper.updateConfirm(dto);
+    	if (user == null){
+    		return false;
+    	}
+    	return true;
+    }
+
+
 }

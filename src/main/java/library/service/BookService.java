@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import library.dto.BookDto;
 import library.dto.LibraryDto;
+import library.dto.MypageRentalDto;
 import library.dto.RentalDto;
 import library.mapper.BookMapper;
 
@@ -24,11 +25,12 @@ public class BookService {
         bookMapper.insert(dto);
     }
 	
+	//貸出
 	public List<String> rental(RentalDto dto) {
 		List<String> messages = new ArrayList<String>();
 		Date date = new Date();
 		dto.setRentalTime(date);
-		
+
         bookMapper.rental(dto);
         return messages;
     }
@@ -49,5 +51,10 @@ public class BookService {
     		messages.add("その図書は既に登録されています");
     	}
         return messages;
+	}
+	
+	public List<MypageRentalDto> rentalConfirm(RentalDto dto) {
+		List<MypageRentalDto> rentalBook = bookMapper.rentalConfirm(dto);
+		return rentalBook;
 	}
 } 

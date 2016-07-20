@@ -4,6 +4,7 @@ import java.util.List;
 
 import library.dto.BookDto;
 import library.dto.LibraryDto;
+import library.dto.MypageRentalDto;
 import library.dto.RentalDto;
 
 public interface BookMapper {
@@ -12,4 +13,5 @@ public interface BookMapper {
 	List<LibraryDto> library();
 	void returnBook(RentalDto dto);
 	List<BookDto> bookCheck(BookDto dto);
+	List<MypageRentalDto> rentalConfirm(RentalDto dto);
 }
