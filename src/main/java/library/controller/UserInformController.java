@@ -129,11 +129,25 @@ public class UserInformController {
 	        return "lendBook";
 		}
 		
-    	messages = bookService.rental(dto);
-    	model.addAttribute("bookForm", form);
+		MypageRentalDto lend = bookService.lendConfirm(dto);
+		System.out.println(lend);
+		//lend.setUserId(dto.getUserId());
+		//System.out.println(lend.getUserId());
+    	model.addAttribute("lend", lend);
         model.addAttribute("messages", messages);
-        return "redirect:/lendBook";
+        return "lendConfirm";
 	}
+    
+	//貸出
+    @RequestMapping(value = "/lendConfirm", method = RequestMethod.POST)
+    public String lendConfirm(@ModelAttribute RentalForm form, Model model) {
+    	RentalDto dto = new RentalDto();
+    	BeanUtils.copyProperties(form, dto);
+    	List<String> messages = new ArrayList<String>();
+    	messages = bookService.rental(dto);
+    	model.addAttribute("messages", messages);
+    	return "redirect:/lendBook";
+    }
 //    @RequestMapping(value = "/delinquentUser", method = RequestMethod.GET)
 //    public String delinquentUser(Model model) {
 //    	return "delinquentUser";

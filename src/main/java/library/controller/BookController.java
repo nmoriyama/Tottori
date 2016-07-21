@@ -19,7 +19,6 @@ import library.dto.RentalDto;
 import library.form.BookForm;
 import library.form.RentalForm;
 import library.service.BookService;
-import library.service.UserService;
 
 @Controller
 public class BookController {
@@ -27,8 +26,6 @@ public class BookController {
     @Autowired
     private BookService bookService;
     
-    @Autowired
-    private UserService userService;
     //図書登録 重複確認　既に登録されています
     @RequestMapping(value = "/bookRegister", method = RequestMethod.GET)
     public String bookInsert(Model model) {

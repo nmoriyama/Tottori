@@ -70,4 +70,11 @@ public class BookService {
 		List<BookDto> delinquentBook = bookMapper.delinquentBook(dto);
 		return delinquentBook;
 	}
+
+	public MypageRentalDto lendConfirm(RentalDto dto) {
+		System.out.println(dto.getLibraryId1());
+		MypageRentalDto lend = bookMapper.lendConfirm(dto);
+		System.out.println(lend);
+		return lend;
+	}
 } 
