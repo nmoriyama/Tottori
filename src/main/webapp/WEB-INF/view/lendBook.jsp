@@ -13,7 +13,9 @@
 	<c:forEach items = "${ messages }" var = "message">
 		<li><span style="color: #ff0000"><c:out value = "${ message }" /><br></span>
 	</c:forEach>
+	
     <form:form modelAttribute="rentalForm">
+        <div><form:errors path="*"  /></div>
 	   		ユーザーID：<input name = "userId"/><br>
 	        ISBN：<input name = "isbn1"/><br>
 	        図書館番号：

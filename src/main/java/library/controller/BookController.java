@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import library.dto.BookDto;
 import library.dto.LibraryDto;
+import library.dto.MypageRentalDto;
 import library.dto.RentalDto;
 import library.form.BookForm;
 import library.form.RentalForm;
@@ -39,6 +40,7 @@ public class BookController {
     
     @RequestMapping(value = "/bookRegister", method = RequestMethod.POST)
     public String bookInsert(@Valid @ModelAttribute BookForm form, BindingResult result, Model model) {
+
         List<LibraryDto> library = bookService.library();
         BookForm bookForm = new BookForm();
         model.addAttribute("Library", library);
@@ -47,14 +49,15 @@ public class BookController {
     		
             return "bookRegister";
     	} else {
-    		BookDto dto = new BookDto();
-    		BeanUtils.copyProperties(form, dto);
-    		List<String> messages = bookService.bookCheck(dto);
-    		if (messages.size() == 0) {
-    			bookService.insert(dto);
-    			model.addAttribute("bookForm", bookForm);
-    		}
-    		
+
+	    		BookDto dto = new BookDto();
+	    		BeanUtils.copyProperties(form, dto);
+	    		List<String> messages = bookService.bookCheck(dto);
+	    		if (messages.size() == 0) {
+	    			bookService.insert(dto);
+	    			model.addAttribute("bookForm", bookForm);
+	    		}
+  
     		model.addAttribute("messages", messages);
     		return "bookRegister";
     	}
@@ -73,11 +76,39 @@ public class BookController {
     }
     
     @RequestMapping(value = "/returnBook", method = RequestMethod.POST)
-    public String returnBook(@ModelAttribute RentalForm form, Model model) {
-    	RentalDto dto = new RentalDto();
-    	BeanUtils.copyProperties(form, dto);
-    	List<String> messages = bookService.returnBook(dto);
-        model.addAttribute("messages", messages);
-        return "redirect:/returnBook";
+    public String returnBook(@Valid @ModelAttribute RentalForm form, BindingResult result, Model model) {
+
+    	List<LibraryDto> library = bookService.library();
+    	model.addAttribute("Library", library);
+    	if (result.hasErrors()) {
+
+    		 return "returnBook";
+    	} else {
+	    	RentalDto dto = new RentalDto();
+			
+	    	BeanUtils.copyProperties(form, dto);
+
+	    	//入力した本があるか
+	    	BookDto lend = bookService.lendConfirm(dto);
+	    	if (lend == null) {
+	    		model.addAttribute("messages", "図書が見つかりません");
+	    		return "returnBook";
+	    	}
+	    	if (lend.getStatusId() != 2) {
+	    		model.addAttribute("messages", "返却済みです");
+	    		return "returnBook";
+	    	}
+	
+			MypageRentalDto lendBook = new MypageRentalDto();
+			lendBook.setUserId(dto.getUserId());
+	    	BeanUtils.copyProperties(lend, lendBook);
+	    	//返却実行(複数)
+	    	 
+	    	 bookService.returnBook(dto);
+	    //bookテーブルのステータスを3に
+	    	 bookService.updateStatus(3, dto);
+	    	 model.addAttribute("messages", "返却完了しました");
+    	}
+    	return "redirect:/returnBook";
     }
 }

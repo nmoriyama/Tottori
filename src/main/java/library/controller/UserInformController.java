@@ -129,11 +129,13 @@ public class UserInformController {
 	        return "lendBook";
 		}
 		
-		MypageRentalDto lend = bookService.lendConfirm(dto);
-		System.out.println(lend);
-		//lend.setUserId(dto.getUserId());
-		//System.out.println(lend.getUserId());
-    	model.addAttribute("lend", lend);
+		//bookテーブルのステータスを2に
+		bookService.updateStatus(2, dto);
+    	BookDto lend = bookService.lendConfirm(dto);
+		MypageRentalDto lendBook = new MypageRentalDto();
+		lendBook.setUserId(dto.getUserId());
+    	BeanUtils.copyProperties(lend, lendBook);
+    	model.addAttribute("lend", lendBook);
         model.addAttribute("messages", messages);
         return "lendConfirm";
 	}

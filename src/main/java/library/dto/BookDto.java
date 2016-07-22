@@ -22,7 +22,7 @@ public class BookDto {
 	private int shelfId;
 	private int documentId;
 	private int libraryId;
-	private int status;
+	private int statusId;
 	
 	public String getBookKana() {
 		return bookKana;
@@ -102,10 +102,10 @@ public class BookDto {
 	public void setLibraryId(int libraryId) {
 		this.libraryId = libraryId;
 	}
-	public int getStatus() {
-		return status;
+	public int getStatusId() {
+		return statusId;
 	}
-	public void setStatus(int status) {
-		this.status = status;
+	public void setStatusId(int statusId) {
+		this.statusId = statusId;
 	}
 }

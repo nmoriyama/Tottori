@@ -29,23 +29,37 @@ public class BookService {
 	//貸出
 	public List<String> rental(RentalDto dto) {
 		List<String> messages = new ArrayList<String>();
-		Date date = new Date();
-		dto.setRentalTime(date);
+		for (int i=0; i < 8; i++) {
+			BookDto insert = new BookDto();
+			insert.setIsbn(dto.getIsbn()[i]);
+			insert.setLibraryId(dto.getLibraryId());
+			Date date = new Date();
+			insert.setRentalTime(date);
+			bookMapper.rental(dto);
+		}
 
-        bookMapper.rental(dto);
         return messages;
     }
+	
+	//返却
 	public List<String> returnBook(RentalDto dto) {
 		List<String> messages = new ArrayList<String>();
-		
-        bookMapper.returnBook(dto);
+		for (int i=0; i < 8; i++) {
+			BookDto delete = new BookDto();
+			delete.setIsbn(dto.getIsbn()[i]);
+			delete.setLibraryId(dto.getLibraryId());
+			bookMapper.returnBook(delete);
+		}
         return messages;
     }
+	
+	//図書館名
 	public List<LibraryDto> library() {
 		List<LibraryDto> library = bookMapper.library();
 		return library;
 	}
 	
+	//図書が登録されているか
 	public List<String> bookCheck(BookDto dto) {
 		List<String> messages = new ArrayList<String>();
 		List<BookDto> bookCheck = bookMapper.bookCheck(dto);
@@ -55,26 +69,38 @@ public class BookService {
         return messages;
 	}
 	
+	//
 	public List<MypageRentalDto> rentalConfirm(RentalDto dto) {
 		List<MypageRentalDto> rentalBook = bookMapper.rentalConfirm(dto);
 		return rentalBook;
 	}
 
+	
+	//貸し出し期限
 	public List<BookDto> delinquentBook(RentalDto dto) {
     	Date date = new Date();
     	Calendar cal = Calendar.getInstance();
     	cal.setTime(date);
-    	cal.add(Calendar.DATE,14);
+    	cal.add(Calendar.DATE,-14);
     	Date afterTime = new java.sql.Date(cal.getTimeInMillis());
     	dto.setRentalTime(afterTime);
 		List<BookDto> delinquentBook = bookMapper.delinquentBook(dto);
 		return delinquentBook;
 	}
 
-	public MypageRentalDto lendConfirm(RentalDto dto) {
-		System.out.println(dto.getLibraryId1());
-		MypageRentalDto lend = bookMapper.lendConfirm(dto);
-		System.out.println(lend);
+	public BookDto lendConfirm(RentalDto dto) {
+		BookDto lend = bookMapper.lendConfirm(dto);
+		
 		return lend;
+	}
+
+	public void updateStatus(int status, RentalDto dto) {
+		
+		for (int i = 0; i < 8; i++) {
+			BookDto update = new BookDto();
+			update.setIsbn(dto.getIsbn()[i]);
+			update.setStatusId(status);
+			bookMapper.updateStatus(update);
+		}
 	}
 } 

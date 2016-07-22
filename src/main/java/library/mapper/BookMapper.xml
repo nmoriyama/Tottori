@@ -10,6 +10,7 @@
         <result column="author_name" property="authorName" />
         <result column="rental_time" property="rentalTime" />
         <result column="shelf_id" property="shelfId" />
+		<result column="status_id" property="statusId" />
         <result column="document_id" property="documentId" />
         <result column="library_id" property="libraryId" />
     </resultMap>
@@ -34,10 +35,10 @@
 	</select>
 	<insert id="rental">
 		INSERT INTO rental (user_id, isbn, library_id, rental_time)
-		 VALUES (#{userId}, #{isbn1}, #{libraryId}, #{rentalTime}) ;
+		 VALUES (#{userId}, #{isbn[0]}, #{libraryId}, #{rentalTime}) ;
 	</insert>
 	<delete id="returnBook">
-		DELETE FROM rental WHERE isbn = #{isbn1} AND library_id = #{libraryId};
+		DELETE FROM rental WHERE isbn like #{isbn} AND library_id like #{libraryId};
 	</delete>
 	<select id="bookCheck" resultMap="BookResult">
 		SELECT * FROM book WHERE isbn = #{isbn} AND library_id = #{libraryId}; 
@@ -48,10 +49,13 @@
 	</select>
 	
 	<select id="delinquentBook" resultMap="BookResult">
-		SELECT * FROM mypage_rental WHERE isbn = #{isbn1} AND #{rentalTime} >= rental_time; 
+		SELECT * FROM mypage_rental WHERE isbn = #{isbn[0]} AND #{rentalTime} >= rental_time; 
 	</select>
 	
 	<select id="lendConfirm" resultMap="BookResult">
-		SELECT book_name,isbn FROM book WHERE isbn = #{isbn1} AND library_id = #{libraryId1};
+		SELECT book_name,isbn,status_id FROM book WHERE isbn = #{isbn[0]} AND library_id = #{libraryId};
 	</select>
+	
+	<update id="updateStatus">
+	</update>
 </mapper>
