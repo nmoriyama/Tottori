@@ -23,6 +23,7 @@
 		<result column="book_name" property="bookName" />
 		<result column="author_name" property="authorName" />
     </resultMap>
+    <!-- 図書登録 -->
 	<insert id="insert">
 		INSERT INTO book (book_kanaByte, book_name, author_kanaByte, author_name, publisher
 		 , isbn, shelf_id, document_id, library_id, status_id) 
@@ -30,16 +31,22 @@
 		 , #{publisher}, #{isbn}, #{shelfId}, #{documentId}, #{libraryId}, 1) ;
 	</insert>
 	
+	<!-- 図書館名取得 -->
 	<select id="library" resultMap="LibraryResult">
 		SELECT * FROM library ; 
 	</select>
+	
+	<!-- 貸出実行 -->
 	<insert id="rental">
 		INSERT INTO rental (user_id, isbn, library_id, rental_time)
-		 VALUES (#{userId}, #{isbn[0]}, #{libraryId}, #{rentalTime}) ;
+		 VALUES (#{userId}, #{UseIsbn}, #{libraryId}, #{rentalTime}) ;
 	</insert>
+	
+	<!-- 返却実行 -->
 	<delete id="returnBook">
 		DELETE FROM rental WHERE isbn like #{isbn} AND library_id like #{libraryId};
 	</delete>
+	
 	<select id="bookCheck" resultMap="BookResult">
 		SELECT * FROM book WHERE isbn = #{isbn} AND library_id = #{libraryId}; 
 	</select>
@@ -48,14 +55,17 @@
 		SELECT * FROM mypage_rental WHERE user_id = #{userId};
 	</select>
 	
+	<!-- 延滞チェック -->
 	<select id="delinquentBook" resultMap="BookResult">
-		SELECT * FROM mypage_rental WHERE isbn = #{isbn[0]} AND #{rentalTime} >= rental_time; 
+		SELECT * FROM mypage_rental WHERE isbn = #{isbn} AND #{rentalTime} >= rental_time; 
 	</select>
 	
 	<select id="lendConfirm" resultMap="BookResult">
 		SELECT book_name,isbn,status_id FROM book WHERE isbn = #{isbn[0]} AND library_id = #{libraryId};
 	</select>
 	
+	<!-- ステータス変更 -->
 	<update id="updateStatus">
+		UPDATE book SET status_id = #{statusId} WHERE isbn = #{isbn}
 	</update>
 </mapper>

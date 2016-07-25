@@ -2,12 +2,9 @@ package library.form;
 
 import java.util.Date;
 
-import javax.validation.constraints.NotNull;
-
 public class RentalForm {
 	private int rentalId;
 	private String userId;
-	@NotNull(message = "ISBNを入力してください")
 	private int[] isbn;
 	private int libraryId;
 	private Date rentalTime;

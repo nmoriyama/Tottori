@@ -27,24 +27,25 @@ public class BookService {
     }
 	
 	//貸出
-	public List<String> rental(RentalDto dto) {
+	public List<String> rental(RentalDto dto, int totalIsbn) {
 		List<String> messages = new ArrayList<String>();
-		for (int i=0; i < 8; i++) {
-			BookDto insert = new BookDto();
-			insert.setIsbn(dto.getIsbn()[i]);
+		for (int i=0; i < totalIsbn; i++) {
+			RentalDto insert = new RentalDto();
+			insert.setUserId(dto.getUserId());
+			insert.setUseIsbn(dto.getIsbn()[i]);
 			insert.setLibraryId(dto.getLibraryId());
 			Date date = new Date();
 			insert.setRentalTime(date);
-			bookMapper.rental(dto);
+			bookMapper.rental(insert);
 		}
 
         return messages;
     }
 	
 	//返却
-	public List<String> returnBook(RentalDto dto) {
+	public List<String> returnBook(RentalDto dto, int totalIsbn) {
 		List<String> messages = new ArrayList<String>();
-		for (int i=0; i < 8; i++) {
+		for (int i=0; i < totalIsbn; i++) {
 			BookDto delete = new BookDto();
 			delete.setIsbn(dto.getIsbn()[i]);
 			delete.setLibraryId(dto.getLibraryId());
@@ -76,27 +77,35 @@ public class BookService {
 	}
 
 	
-	//貸し出し期限
-	public List<BookDto> delinquentBook(RentalDto dto) {
+	//貸出期限
+	public List<BookDto> delinquentBook(RentalDto dto, int totalIsbn) {
+		//１４日前の日付を取得(取得した日以前の場合延滞)
     	Date date = new Date();
     	Calendar cal = Calendar.getInstance();
     	cal.setTime(date);
     	cal.add(Calendar.DATE,-14);
     	Date afterTime = new java.sql.Date(cal.getTimeInMillis());
-    	dto.setRentalTime(afterTime);
-		List<BookDto> delinquentBook = bookMapper.delinquentBook(dto);
-		return delinquentBook;
+    	//延滞チェック
+    	List<BookDto> book = new ArrayList<BookDto>();
+    	for (int i = 0; i < totalIsbn; i++) {
+	    	dto.setRentalTime(afterTime);
+	    	book.add(bookMapper.delinquentBook(dto));
+    	}
+		return book;
 	}
 
-	public BookDto lendConfirm(RentalDto dto) {
-		BookDto lend = bookMapper.lendConfirm(dto);
-		
+	public BookDto lendConfirm(RentalDto dto, int totalIsbn) {
+		BookDto lend = new BookDto();
+		for (int i = 0; i < totalIsbn; i++) {
+			 dto.setUseIsbn(dto.getIsbn()[i]);
+			 bookMapper.lendConfirm(dto);
+		}
 		return lend;
 	}
 
-	public void updateStatus(int status, RentalDto dto) {
+	public void updateStatus(int status, RentalDto dto, int totalIsbn) {
 		
-		for (int i = 0; i < 8; i++) {
+		for (int i = 0; i < totalIsbn; i++) {
 			BookDto update = new BookDto();
 			update.setIsbn(dto.getIsbn()[i]);
 			update.setStatusId(status);

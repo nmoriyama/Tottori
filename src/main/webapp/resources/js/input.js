@@ -1,17 +1,10 @@
 var num = 0;
-function input(){
+function add(){
 	num++;
-	var inputName = "isbn";
 	var input = document.createElement("input");
 
-	input.setAttribute("name",inputName);
+	input.setAttribute("name","isbn");
 	document.getElementById("input").appendChild(input);
 	
-	var limit = 8;
-	if(num > limit){ // 10個以上になったらそれ以上増やさない
-		input.setAttribute("type","text");
-		return false;
-	}
-	
-	return true;
+
 }

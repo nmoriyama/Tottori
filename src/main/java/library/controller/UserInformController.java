@@ -88,6 +88,7 @@ public class UserInformController {
     		return "home";
     	}
     }
+    
 	//貸出
     @RequestMapping(value = "/lendBook", method = RequestMethod.GET)
     public String lendBook(Model model) {
@@ -112,12 +113,14 @@ public class UserInformController {
 	    	model.addAttribute("updateUser", updateUser);
 			return "redirect:/userUpdate";
 		} 
-		//延滞
-		List<BookDto> delinquentBook = bookService.delinquentBook(dto);
+		
+		//延滞しているか
+		List<BookDto> delinquentBook = bookService.delinquentBook(dto, dto.getIsbn().length);
 		if (delinquentBook.size() != 0) {
 			model.addAttribute("RentalBook", delinquentBook);
 			return "delinquentUser";	
 		} 
+		
 		//８冊以上借りている
 		List<MypageRentalDto> rentalBook = bookService.rentalConfirm(dto);
 		if (rentalBook.size() >= 8) {
@@ -128,16 +131,20 @@ public class UserInformController {
 	        model.addAttribute("messages", messages);
 	        return "lendBook";
 		}
+		//確認画面用　一時コメントに
+//    	BookDto lend = bookService.lendConfirm(dto);　7/25
+//		MypageRentalDto lendBook = new MypageRentalDto();
+//		lendBook.setUserId(dto.getUserId());
+//    	BeanUtils.copyProperties(lend, lendBook); 7/25
 		
+		//貸出
+		bookService.rental(dto, dto.getIsbn().length);
 		//bookテーブルのステータスを2に
-		bookService.updateStatus(2, dto);
-    	BookDto lend = bookService.lendConfirm(dto);
-		MypageRentalDto lendBook = new MypageRentalDto();
-		lendBook.setUserId(dto.getUserId());
-    	BeanUtils.copyProperties(lend, lendBook);
-    	model.addAttribute("lend", lendBook);
+		bookService.updateStatus(2, dto, dto.getIsbn().length);
+//    	model.addAttribute("lend", lendBook);
         model.addAttribute("messages", messages);
-        return "lendConfirm";
+//        return "lendConfirm";
+        return "redirect:/lendBook";
 	}
     
 	//貸出
@@ -146,7 +153,7 @@ public class UserInformController {
     	RentalDto dto = new RentalDto();
     	BeanUtils.copyProperties(form, dto);
     	List<String> messages = new ArrayList<String>();
-    	messages = bookService.rental(dto);
+//    	messages = bookService.rental(dto);
     	model.addAttribute("messages", messages);
     	return "redirect:/lendBook";
     }

@@ -14,7 +14,7 @@ public interface BookMapper {
 	void returnBook(BookDto dto);
 	List<BookDto> bookCheck(BookDto dto);
 	List<MypageRentalDto> rentalConfirm(RentalDto dto);
-	List<BookDto> delinquentBook(RentalDto dto);
+	BookDto delinquentBook(RentalDto dto);
 	BookDto lendConfirm(RentalDto dto);
 	void updateStatus(BookDto dto);
 }

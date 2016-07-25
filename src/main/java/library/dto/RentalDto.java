@@ -5,9 +5,17 @@ import java.util.Date;
 public class RentalDto {
 	private int rentalId;
 	private String userId;
-	private int[] isbn = new int[8];
+	private int[] isbn;
+	private int UseIsbn;
 	private int libraryId;
 	private Date rentalTime;
+	
+	public int getUseIsbn() {
+		return UseIsbn;
+	}
+	public void setUseIsbn(int useIsbn) {
+		UseIsbn = useIsbn;
+	}
 	public int[] getIsbn() {
 		return isbn;
 	}

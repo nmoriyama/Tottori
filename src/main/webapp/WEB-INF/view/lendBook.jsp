@@ -17,26 +17,17 @@
     <form:form modelAttribute="rentalForm">
         <div><form:errors path="*"  /></div>
 	   		ユーザーID：<input name = "userId"/><br>
-	        ISBN：<input name = "isbn1"/><br>
+	        ISBN：<input name = "isbn"/><br>
 	        図書館番号：
-	        <select name = "libraryId1">
+	        <select name = "libraryId">
 				<c:forEach items = "${ Library }" var = "library">
 					<option value = "${ library.libraryId }" >
 					<c:out value = "${ library.libraryName }" /></option>
 				</c:forEach>
 			</select>
-			<c:if test = "input()">
-		        ISBN：<input name = "isbn"/><br>
-		        図書館番号：
-		        <select name = "libraryId">
-					<c:forEach items = "${ Library }" var = "library">
-						<option value = "${ library.libraryId }" >
-						<c:out value = "${ library.libraryName }" /></option>
-					</c:forEach>
-				</select>
-			</c:if>
 			<div id="input"></div>
-			<input type="button" value="追加" onClick="input()">
+			<input type="button" value="追加" onClick="add()">
+			<input type="button" value="削除" onClick="cut()">
 			<br>
         <input type="submit" value = "貸出"/>
     </form:form>
