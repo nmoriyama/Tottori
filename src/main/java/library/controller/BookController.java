@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import library.dto.BookDto;
 import library.dto.LibraryDto;
-import library.dto.MypageRentalDto;
 import library.dto.RentalDto;
 import library.form.BookForm;
 import library.form.RentalForm;
@@ -82,19 +81,19 @@ public class BookController {
     	BeanUtils.copyProperties(form, dto);
 
     	//入力した本があるか
-    	BookDto lend = bookService.lendConfirm(dto, dto.getIsbn().length);
-    	if (lend == null) {
-    		model.addAttribute("messages", "図書が見つかりません");
-    		return "returnBook";
-    	}
-    	if (lend.getStatusId() != 2) {
-    		model.addAttribute("messages", "返却済みです");
-    		return "returnBook";
+    	for (int i = 0; i < dto.getIsbn().length; i++) {
+	    	BookDto lend = bookService.lendConfirm(dto, dto.getIsbn()[i]);
+	    	if (lend == null) {
+	    		model.addAttribute("messages", "図書が見つかりません");
+	    		return "returnBook";
+	    	}
+	    	if (lend.getStatusId() != 2) {
+	    		model.addAttribute("messages", "返却済みです");
+	    		return "returnBook";
+	    	}
     	}
 
-		MypageRentalDto lendBook = new MypageRentalDto();
-		lendBook.setUserId(dto.getUserId());
-    	BeanUtils.copyProperties(lend, lendBook);
+
     	//返却実行(複数)
     	 
     	 bookService.returnBook(dto, dto.getIsbn().length);

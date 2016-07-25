@@ -94,12 +94,11 @@ public class BookService {
 		return book;
 	}
 
-	public BookDto lendConfirm(RentalDto dto, int totalIsbn) {
+	//貸出中かチェック
+	public BookDto lendConfirm(RentalDto dto, int isbn) {
 		BookDto lend = new BookDto();
-		for (int i = 0; i < totalIsbn; i++) {
-			 dto.setUseIsbn(dto.getIsbn()[i]);
-			 bookMapper.lendConfirm(dto);
-		}
+		dto.setUseIsbn(isbn);
+		lend = bookMapper.lendConfirm(dto);
 		return lend;
 	}
 

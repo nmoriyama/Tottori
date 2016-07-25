@@ -61,7 +61,7 @@
 	</select>
 	
 	<select id="lendConfirm" resultMap="BookResult">
-		SELECT book_name,isbn,status_id FROM book WHERE isbn = #{isbn[0]} AND library_id = #{libraryId};
+		SELECT book_name,isbn,status_id FROM book WHERE isbn = #{useIsbn} AND library_id = #{libraryId};
 	</select>
 	
 	<!-- ステータス変更 -->
