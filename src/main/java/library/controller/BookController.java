@@ -13,10 +13,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import library.dto.BookDto;
 import library.dto.LibraryDto;
+import library.dto.MypageRentalDto;
 import library.dto.RentalDto;
 import library.dto.StatusDto;
 import library.form.BookForm;
 import library.form.RentalForm;
+import library.form.UserForm;
 import library.service.BookService;
 
 @Controller
@@ -135,4 +137,34 @@ public class BookController {
     	return "changeStatus";
     }
     
+    //時間変更
+    @RequestMapping(value = "/changeTime", method = RequestMethod.GET)
+    public String changeTime(Model model) {
+    	UserForm form = new UserForm();
+    	model.addAttribute("userForm", form);
+        return "changeTime";
+    }
+    
+    //本管理
+    @RequestMapping(value = "/bookManagement", method = RequestMethod.GET)
+    public String bookManagement(Model model) {
+        List<BookDto> book = bookService.bookManagement();
+        List<MypageRentalDto> rental = bookService.rentalManagement();
+    	RentalForm rentalForm = new RentalForm();
+        model.addAttribute("rentalForm", rentalForm);
+        model.addAttribute("Books", book);
+        model.addAttribute("Rental", rental);
+        return "bookManagement";
+    }
+    
+    @RequestMapping(value = "/bookManagement", method = RequestMethod.POST)
+    public String bookManagement(@ModelAttribute RentalForm form, Model model) {
+    	RentalDto dto = new RentalDto();
+    	BeanUtils.copyProperties(form, dto);
+    	System.out.println(form.getUseIsbn()+","+dto.getDate()+","+dto.getLibraryId()+","+dto.getUserId());
+    	bookService.changeDate(dto);
+    	
+    	return "redirect:/bookManagement";
+    }
+ 
 }

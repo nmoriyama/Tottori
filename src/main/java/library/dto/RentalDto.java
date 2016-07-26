@@ -6,15 +6,21 @@ public class RentalDto {
 	private int rentalId;
 	private String userId;
 	private int[] isbn;
-	private int UseIsbn;
+	private int useIsbn;
 	private int libraryId;
 	private Date rentalTime;
-	
+	private String date;
+	public String getDate() {
+		return date;
+	}
+	public void setDate(String date) {
+		this.date = date;
+	}
 	public int getUseIsbn() {
-		return UseIsbn;
+		return useIsbn;
 	}
 	public void setUseIsbn(int useIsbn) {
-		UseIsbn = useIsbn;
+		this.useIsbn = useIsbn;
 	}
 	public int[] getIsbn() {
 		return isbn;

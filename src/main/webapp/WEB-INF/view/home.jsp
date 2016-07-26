@@ -22,5 +22,7 @@
 	<a href="blackList"><button >延滞者</button></a>
 	
 	<a href="changeStatus"><button >本の状態変更</button></a>
+	<a href="userManagement"><button >ユーザー確認</button></a>
+	<a href="bookManagement"><button >本確認</button></a>
 </body>
 </html>

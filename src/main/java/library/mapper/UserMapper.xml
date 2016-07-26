@@ -47,4 +47,12 @@
 	<select id="updateConfirm" resultMap="UserResult">
 		SELECT * FROM user WHERE user_id = #{userId} AND NOW() >= update_time;
 	</select>
+	
+	<select id="userManagement" resultMap="UserResult">
+		SELECT * FROM user ;
+	</select>
+	
+	<update id="changeDate">
+		UPDATE user SET update_time = #{date} WHERE user_id = #{userId} ;
+	</update>
 </mapper>

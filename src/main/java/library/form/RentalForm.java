@@ -6,8 +6,23 @@ public class RentalForm {
 	private int rentalId;
 	private String userId;
 	private int[] isbn;
+	private int useIsbn;
 	private int libraryId;
 	private Date rentalTime;
+	private String date;
+
+	public int getUseIsbn() {
+		return useIsbn;
+	}
+	public void setUseIsbn(int useIsbn) {
+		this.useIsbn = useIsbn;
+	}
+	public String getDate() {
+		return date;
+	}
+	public void setDate(String date) {
+		this.date = date;
+	}
 	public int[] getIsbn() {
 		return isbn;
 	}

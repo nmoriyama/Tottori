@@ -82,4 +82,16 @@
 	<select id="status" resultMap="StatusResult">
 		SELECT * FROM status ; 
 	</select>
+	
+	<select id="bookManagement" resultMap="BookResult">
+		SELECT * FROM book ; 
+	</select>
+	
+	<select id="rentalManagement" resultMap="RentalResult">
+		SELECT * FROM mypage_rental ; 
+	</select>
+	
+	<update id="changeDate">
+		UPDATE rental SET rental_time = #{date} WHERE user_id = #{userId} AND isbn = #{useIsbn} AND library_id = #{libraryId};
+	</update>
 </mapper>

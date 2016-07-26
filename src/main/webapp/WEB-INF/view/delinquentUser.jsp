@@ -13,10 +13,10 @@
 <table border="" cellpadding="13" align="center">
 	<tr>
 		<td>名前</td>
-			<td>書名</td>
- 			<td>貸出日</td>
-			<td>経過日数</td>
-		</tr>
+		<td>書名</td>
+		<td>貸出日</td>
+		<td>経過日数</td>
+	</tr>
 	<c:forEach items = "${ RentalBook }" var = "rentalBook">
 		<tr>
 			<td><c:out value = "${ rentalBook.userName }" /></td>

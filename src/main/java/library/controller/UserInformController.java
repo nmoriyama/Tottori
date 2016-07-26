@@ -116,8 +116,7 @@ public class UserInformController {
 		
 		//延滞しているか ユーザーIDを使う必要あり
 		List<MypageRentalDto> delinquentBook = bookService.delinquentBook(dto);
-
-		if (delinquentBook != null) {
+		if (delinquentBook.size() != 0) {
 			model.addAttribute("RentalBook", delinquentBook);
 			return "delinquentUser";	
 		} 

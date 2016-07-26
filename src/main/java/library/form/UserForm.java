@@ -18,6 +18,13 @@ public class UserForm {
 	private String phoneNumber;
 	@NotNull
 	private int libraryId;
+	private String date;
+	public String getDate() {
+		return date;
+	}
+	public void setDate(String date) {
+		this.date = date;
+	}
 	public String getUserId() {
 		return userId;
 	}

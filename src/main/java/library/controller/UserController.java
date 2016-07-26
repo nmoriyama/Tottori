@@ -69,18 +69,23 @@ public class UserController {
     	}
     }
 
+    //ユーザー管理
+    @RequestMapping(value = "/userManagement", method = RequestMethod.GET)
+    public String userManagement(Model model) {
+    	UserForm userForm = new UserForm();
+        List<UserDto> users = userService.userManagement();
+        model.addAttribute("userForm", userForm);
+        model.addAttribute("Users", users);
+        return "userManagement";
+    }
     
-    
-    
- //ユーザー更新(更新)
-  /*  @RequestMapping(value = "/userUpdate", method = RequestMethod.GET)
-    public String userUpdate(Model model) {
-    	UserForm form = new UserForm();
-        model.addAttribute("userForm", form);
-        List<LibraryDto> library = bookService.library();
-        model.addAttribute("Library", library);
-        return "userUpdate";
-    }*/
-    
-
+    @RequestMapping(value = "/userManagement", method = RequestMethod.POST)
+    public String userManagement(@ModelAttribute UserForm form, Model model) {
+    	UserDto dto = new UserDto();
+    	BeanUtils.copyProperties(form, dto);
+    	userService.changeDate(dto);
+    	
+    	return "redirect:/userManagement";
+    }
+  
 }

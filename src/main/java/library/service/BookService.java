@@ -131,4 +131,21 @@ public class BookService {
 		List<StatusDto> status = bookMapper.status();
 		return status;
 	}
+	
+	//本確認
+	public List<BookDto> bookManagement() {
+		List<BookDto> book = bookMapper.bookManagement();
+		return book;
+	}
+	
+	public List<MypageRentalDto> rentalManagement() {
+		List<MypageRentalDto> rental = bookMapper.rentalManagement();
+		return rental;
+		
+	}
+	
+	public void changeDate(RentalDto dto) {
+		
+		bookMapper.changeDate(dto);
+	}
 } 

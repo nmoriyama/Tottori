@@ -15,4 +15,6 @@ public interface UserMapper {
 	List<UserDto> mailCheck(UserDto dto);
 	List<UserDto> phoneNumberCheck(UserDto dto);
 	List<UserDto> updateConfirm(RentalDto dto);
+	List<UserDto> userManagement();
+	void changeDate(UserDto dto);
 }

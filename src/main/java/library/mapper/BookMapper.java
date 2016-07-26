@@ -20,4 +20,7 @@ public interface BookMapper {
 	void updateStatus(BookDto dto);
 	void changeStatus(BookDto dto);
 	List<StatusDto> status();
+	List<BookDto> bookManagement();
+	List<MypageRentalDto> rentalManagement();
+	void changeDate(RentalDto dto);
 }

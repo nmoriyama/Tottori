@@ -78,5 +78,12 @@ public class UserService {
     	return true;
     }
 
-
+    public List<UserDto> userManagement() {
+    	List<UserDto> users = userMapper.userManagement();
+    	return users;
+    }
+    
+    public void changeDate(UserDto dto) {
+    	userMapper.changeDate(dto);
+    }
 }
