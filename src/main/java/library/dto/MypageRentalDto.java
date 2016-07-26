@@ -4,6 +4,7 @@ import java.util.Date;
 
 public class MypageRentalDto {
 	private String userId;
+	private String userName;
 	private String authorName;
 	private String bookName;
 	private Date rentalTime;
@@ -20,6 +21,12 @@ public class MypageRentalDto {
 	}
 	public void setUserId(String userId) {
 		this.userId = userId;
+	}
+	public String getUserName() {
+		return userName;
+	}
+	public void setUserName(String userName) {
+		this.userName = userName;
 	}
 	public String getAuthorName() {
 		return authorName;

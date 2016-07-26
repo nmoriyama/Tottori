@@ -83,7 +83,7 @@ public class BookService {
 
 	
 	//延滞チェック
-	public BookDto delinquentBook(RentalDto dto) throws ParseException {
+	public List<MypageRentalDto> delinquentBook(RentalDto dto) throws ParseException {
 		//１４日前の日付を取得(取得した日以前の場合延滞)
     	Date date = new Date();
     	Calendar cal = Calendar.getInstance();
@@ -96,7 +96,7 @@ public class BookService {
     	RentalDto Search = new RentalDto();
     	Search.setRentalTime(formatDate);
     	Search.setUserId(dto.getUserId());
-    	BookDto result = bookMapper.delinquentBook(Search);
+    	List<MypageRentalDto> result = bookMapper.delinquentBook(Search);
 
 		return result;
 	}

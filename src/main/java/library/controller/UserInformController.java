@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
-import library.dto.BookDto;
 import library.dto.LibraryDto;
 import library.dto.MypageRentalDto;
 import library.dto.RentalDto;
@@ -116,7 +115,7 @@ public class UserInformController {
 		} 
 		
 		//延滞しているか ユーザーIDを使う必要あり
-		BookDto delinquentBook = bookService.delinquentBook(dto);
+		List<MypageRentalDto> delinquentBook = bookService.delinquentBook(dto);
 
 		if (delinquentBook != null) {
 			model.addAttribute("RentalBook", delinquentBook);

@@ -19,6 +19,7 @@
         <result column="library_name" property="libraryName" />
     </resultMap>
     <resultMap id="RentalResult" type="library.dto.MypageRentalDto">
+    	<result column="user_name" property="userName" />
 		<result column="rental_time" property="rentalTime" />
 		<result column="book_name" property="bookName" />
 		<result column="author_name" property="authorName" />
@@ -60,7 +61,7 @@
 	</select>
 	
 	<!-- 延滞チェック -->
-	<select id="delinquentBook" resultMap="BookResult">
+	<select id="delinquentBook" resultMap="RentalResult">
 		SELECT * FROM mypage_rental WHERE user_id = #{userId} AND #{rentalTime} >= rental_time; 
 	</select>
 	
