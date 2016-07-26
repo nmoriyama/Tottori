@@ -9,24 +9,11 @@
 <title>未返却の図書</title>
 </head>
 <body>
-	<c:forEach items = "${ messages }" var = "message">
-		<li><span style="color: #ff0000"><c:out value = "${ message }" /><br></span>
-	</c:forEach>
+
 対象者の返却されていない本	<a href = "home">戻る</a>
 <table>
-	<tr>
-    	<td>名前</td>
-   		<td>書名</td>
-   		<td>貸出日</td>
-   		<td>経過日数</td>
-   	</tr>
-	<c:forEach items = "${ RentalBook }" var = "rentalBook">
-		<tr>
-			<td><c:out value = "${ rentalBook.authorName }" /></td>
-			<td><c:out value = "${ rentalBook.bookName }" /></td>
-			<td><fmt:formatDate value = "${ rentalBook.rentalTime }" pattern = "yyyy年MM月dd日"/></td>
-		</tr>
-	</c:forEach>
+
+	
 </table>
 </body>
 </html>

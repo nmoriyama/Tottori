@@ -57,7 +57,7 @@
 	
 	<!-- 延滞チェック -->
 	<select id="delinquentBook" resultMap="BookResult">
-		SELECT * FROM mypage_rental WHERE isbn = #{isbn} AND #{rentalTime} >= rental_time; 
+		SELECT * FROM mypage_rental WHERE user_id = #{userId} AND #{rentalTime} >= rental_time; 
 	</select>
 	
 	<select id="lendConfirm" resultMap="BookResult">

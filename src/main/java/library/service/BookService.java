@@ -1,9 +1,13 @@
 package library.service;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -77,21 +81,29 @@ public class BookService {
 	}
 
 	
-	//貸出期限
-	public List<BookDto> delinquentBook(RentalDto dto, int totalIsbn) {
+	//延滞チェック
+	public BookDto delinquentBook(RentalDto dto) throws ParseException {
 		//１４日前の日付を取得(取得した日以前の場合延滞)
     	Date date = new Date();
     	Calendar cal = Calendar.getInstance();
     	cal.setTime(date);
     	cal.add(Calendar.DATE,-14);
     	Date afterTime = new java.sql.Date(cal.getTimeInMillis());
+    	
+    	String strPreviousDate = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss",Locale.US).format(cal.getTime());
+System.out.println(strPreviousDate);
+SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd HH:mm:ss");
+
+// Date型変換
+Date formatDate =DateFormat.getDateInstance().parse(strPreviousDate);
     	//延滞チェック
-    	List<BookDto> book = new ArrayList<BookDto>();
-    	for (int i = 0; i < totalIsbn; i++) {
-	    	dto.setRentalTime(afterTime);
-	    	book.add(bookMapper.delinquentBook(dto));
-    	}
-		return book;
+    	System.out.println(afterTime);
+    	RentalDto Search = new RentalDto();
+    	Search.setRentalTime(formatDate);
+    	Search.setUserId(dto.getUserId());
+    	BookDto result = bookMapper.delinquentBook(Search);
+
+		return result;
 	}
 
 	//貸出中かチェック

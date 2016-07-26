@@ -1,5 +1,6 @@
 package library.controller;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -101,7 +102,7 @@ public class UserInformController {
     }
     
     @RequestMapping(value = "/lendBook", method = RequestMethod.POST)
-    public String lendBook(@ModelAttribute RentalForm form, Model model) {
+    public String lendBook(@ModelAttribute RentalForm form, Model model) throws ParseException {
     	RentalDto dto = new RentalDto();
     	BeanUtils.copyProperties(form, dto);
     	List<String> messages = new ArrayList<String>();
@@ -114,9 +115,10 @@ public class UserInformController {
 			return "redirect:/userUpdate";
 		} 
 		
-		//延滞しているか
-		List<BookDto> delinquentBook = bookService.delinquentBook(dto, dto.getIsbn().length);
-		if (delinquentBook.size() != 0) {
+		//延滞しているか ユーザーIDを使う必要あり
+		BookDto delinquentBook = bookService.delinquentBook(dto);
+
+		if (delinquentBook != null) {
 			model.addAttribute("RentalBook", delinquentBook);
 			return "delinquentUser";	
 		} 
