@@ -6,6 +6,7 @@ import library.dto.BookDto;
 import library.dto.LibraryDto;
 import library.dto.MypageRentalDto;
 import library.dto.RentalDto;
+import library.dto.StatusDto;
 
 public interface BookMapper {
 	void insert(BookDto dto);
@@ -17,4 +18,6 @@ public interface BookMapper {
 	BookDto delinquentBook(RentalDto dto);
 	BookDto lendConfirm(RentalDto dto);
 	void updateStatus(BookDto dto);
+	void changeStatus(BookDto dto);
+	List<StatusDto> status();
 }

@@ -1,5 +1,6 @@
 package library.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.BeanUtils;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import library.dto.BookDto;
 import library.dto.LibraryDto;
 import library.dto.RentalDto;
+import library.dto.StatusDto;
 import library.form.BookForm;
 import library.form.RentalForm;
 import library.service.BookService;
@@ -93,7 +95,6 @@ public class BookController {
 	    	}
     	}
 
-
     	//返却実行(複数)
     	 
     	 bookService.returnBook(dto, dto.getIsbn().length);
@@ -102,4 +103,36 @@ public class BookController {
     	 model.addAttribute("messages", "返却完了しました");
     	return "redirect:/returnBook";
     }
+    
+    //ステータス変更
+    @RequestMapping(value = "/changeStatus", method = RequestMethod.GET)
+    public String changeStatus(Model model) {
+    	BookForm form = new BookForm();
+    	List<StatusDto> status = bookService.status();
+    	List<LibraryDto> library = bookService.library();
+    	model.addAttribute("Status", status);
+    	model.addAttribute("Library", library);
+    	model.addAttribute("bookForm", form);
+        return "changeStatus";
+    }
+    
+    @RequestMapping(value = "/changeStatus", method = RequestMethod.POST)
+    public String changeStatus(@ModelAttribute BookForm form, Model model) {
+    	BookDto dto = new BookDto();
+    	BeanUtils.copyProperties(form, dto);
+    	List<String> messages = new ArrayList<String>();
+    	
+    	bookService.changeStatus(dto);
+    	
+    	messages.add("ステータスを変更しました");
+    	BookForm nextForm = new BookForm();
+    	List<StatusDto> status = bookService.status();
+    	List<LibraryDto> library = bookService.library();
+    	model.addAttribute("Status", status);
+    	model.addAttribute("Library", library);
+    	model.addAttribute("bookForm", nextForm);
+    	model.addAttribute("messages", messages);
+    	return "changeStatus";
+    }
+    
 }

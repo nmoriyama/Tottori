@@ -23,6 +23,10 @@
 		<result column="book_name" property="bookName" />
 		<result column="author_name" property="authorName" />
     </resultMap>
+	<resultMap id="StatusResult" type="library.dto.StatusDto">
+        <result column="status_id" property="statusId" />
+        <result column="status_name" property="statusName" />
+    </resultMap>
     <!-- 図書登録 -->
 	<insert id="insert">
 		INSERT INTO book (book_kanaByte, book_name, author_kanaByte, author_name, publisher
@@ -68,4 +72,13 @@
 	<update id="updateStatus">
 		UPDATE book SET status_id = #{statusId} WHERE isbn = #{isbn}
 	</update>
+	
+	<update id="changeStatus">
+		UPDATE book SET status_id = #{statusId} WHERE isbn = #{isbn} AND library_id = #{libraryId};
+	</update>
+	
+	<!-- ステータス名取得 -->
+	<select id="status" resultMap="StatusResult">
+		SELECT * FROM status ; 
+	</select>
 </mapper>

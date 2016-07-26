@@ -16,6 +16,7 @@ import library.dto.BookDto;
 import library.dto.LibraryDto;
 import library.dto.MypageRentalDto;
 import library.dto.RentalDto;
+import library.dto.StatusDto;
 import library.mapper.BookMapper;
 
 @Service
@@ -60,7 +61,7 @@ public class BookService {
 	
 	//図書館名
 	public List<LibraryDto> library() {
-		List<LibraryDto> library = bookMapper.library();
+		List<LibraryDto>  library = bookMapper.library();
 		return library;
 	}
 	
@@ -88,16 +89,10 @@ public class BookService {
     	Calendar cal = Calendar.getInstance();
     	cal.setTime(date);
     	cal.add(Calendar.DATE,-14);
-    	Date afterTime = new java.sql.Date(cal.getTimeInMillis());
-    	
     	String strPreviousDate = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss",Locale.US).format(cal.getTime());
-System.out.println(strPreviousDate);
-SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd HH:mm:ss");
-
-// Date型変換
-Date formatDate =DateFormat.getDateInstance().parse(strPreviousDate);
+    	// Date型変換
+    	Date formatDate =DateFormat.getDateInstance().parse(strPreviousDate);
     	//延滞チェック
-    	System.out.println(afterTime);
     	RentalDto Search = new RentalDto();
     	Search.setRentalTime(formatDate);
     	Search.setUserId(dto.getUserId());
@@ -122,5 +117,18 @@ Date formatDate =DateFormat.getDateInstance().parse(strPreviousDate);
 			update.setStatusId(status);
 			bookMapper.updateStatus(update);
 		}
+	}
+	
+	//ステータス変更
+	public void changeStatus(BookDto dto) {
+		
+		bookMapper.changeStatus(dto);
+		
+	}
+	
+	//ステータス名
+	public List<StatusDto> status(){
+		List<StatusDto> status = bookMapper.status();
+		return status;
 	}
 } 
