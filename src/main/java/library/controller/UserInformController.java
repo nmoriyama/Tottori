@@ -63,7 +63,7 @@ public class UserInformController {
     		model.addAttribute("messages", messages);
     		return "userSearch";
     	}
-    	
+    	updateUser.setReferer("userSearch");
     	model.addAttribute("updateUser", updateUser);
 
         return "userUpdate";
@@ -71,6 +71,7 @@ public class UserInformController {
 	 
     @RequestMapping(value = "/userUpdate", method = RequestMethod.POST)
     public String userUpdate(@Valid @ModelAttribute UserForm form, BindingResult result, Model model) {
+  
     	if (result.hasErrors()) {
             List<LibraryDto> library = bookService.library();
             model.addAttribute("Library", library);
@@ -85,7 +86,7 @@ public class UserInformController {
 	    		userService.update(dto);
 //	    	}
     		model.addAttribute("message", messages);
-    		return "home";
+    		return "redirect:/"+dto.getReferer();
     	}
     }
     
@@ -110,6 +111,7 @@ public class UserInformController {
 	    	UserDto userDto = new UserDto();
 	    	userDto.setUserId(dto.getUserId());
 	    	UserDto updateUser = userService.search(userDto);
+	    	updateUser.setReferer("lendBook");
 	    	model.addAttribute("updateUser", updateUser);
 			return "redirect:/userUpdate";
 		} 

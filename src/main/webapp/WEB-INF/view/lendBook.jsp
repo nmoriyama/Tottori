@@ -25,10 +25,12 @@
 					<c:out value = "${ library.libraryName }" /></option>
 				</c:forEach>
 			</select>
-			<div id="input"></div>
+			<div id="input"></div><br>
 			<input type="button" value="追加" onClick="add()">
 			<input type="button" value="削除" onClick="cut()">
 			<br>
+			<input type="hidden" name="referer" value="lendBook>
+			">
         <input type="submit" value = "貸出"/>
     </form:form>
      <a href = "home">戻る</a>

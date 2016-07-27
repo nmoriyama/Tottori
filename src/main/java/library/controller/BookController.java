@@ -161,7 +161,6 @@ public class BookController {
     public String bookManagement(@ModelAttribute RentalForm form, Model model) {
     	RentalDto dto = new RentalDto();
     	BeanUtils.copyProperties(form, dto);
-    	System.out.println(form.getUseIsbn()+","+dto.getDate()+","+dto.getLibraryId()+","+dto.getUserId());
     	bookService.changeDate(dto);
     	
     	return "redirect:/bookManagement";

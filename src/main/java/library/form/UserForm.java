@@ -19,6 +19,14 @@ public class UserForm {
 	@NotNull
 	private int libraryId;
 	private String date;
+	private String referer;
+	
+	public String getReferer() {
+		return referer;
+	}
+	public void setReferer(String referer) {
+		this.referer = referer;
+	}
 	public String getDate() {
 		return date;
 	}

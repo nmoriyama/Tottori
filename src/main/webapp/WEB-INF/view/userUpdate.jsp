@@ -13,6 +13,7 @@
 		<li><span style="color: #ff0000"><c:out value = "${ message }" /><br></span>
 	</c:forEach>
     <form:form modelAttribute="userForm">
+        <input name = "referer" value = "${ updateUser.referer }"/>
         ログインID：<input name = "userId" value = "${ updateUser.userId }"/><br>
         名前：<input name = "userName" value = "${ updateUser.userName }"/><br>
         住所：<input name = "address" value = "${ updateUser.address }"/><br>
@@ -25,6 +26,7 @@
 				<c:out value = "${ library.libraryName }" /></option>
 			</c:forEach>
 		</select><br>
+
         <input type="submit" value = "登録">
     </form:form>
 	<a href = "home">戻る</a>

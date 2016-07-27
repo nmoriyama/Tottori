@@ -3,6 +3,22 @@ package library.dto;
 import java.util.Date;
 
 public class UserDto {
+	
+	private static final long serialVersionUID = 1L;
+
+	private static UserDto userDto;
+
+	public static UserDto getUserDto() {
+		if (userDto == null) {
+			userDto = new UserDto();
+		}
+		return userDto;
+	}
+
+	public static void setUserDto(UserDto Dto) {
+		userDto = Dto;
+	}
+	
 	private String userId;
 	private String userName;
 	private String address;
@@ -12,6 +28,14 @@ public class UserDto {
 	private Date insertTime;
 	private Date updateTime;
 	private String date;
+	private String referer;
+	
+	public String getReferer() {
+		return referer;
+	}
+	public void setReferer(String referer) {
+		this.referer = referer;
+	}
 	
 	public String getDate() {
 		return date;

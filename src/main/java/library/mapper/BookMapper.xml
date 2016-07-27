@@ -44,7 +44,7 @@
 	<!-- 貸出実行 -->
 	<insert id="rental">
 		INSERT INTO rental (user_id, isbn, library_id, rental_time)
-		 VALUES (#{userId}, #{UseIsbn}, #{libraryId}, #{rentalTime}) ;
+		 VALUES (#{userId}, #{useIsbn}, #{libraryId}, #{rentalTime}) ;
 	</insert>
 	
 	<!-- 返却実行 -->
